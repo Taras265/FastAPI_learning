@@ -14,7 +14,18 @@ class Book(BaseModel):
     title: str = Field(min_length=1)
     author: str = Field(min_length=1, max_length=100)
     description: Optional[str] = Field(title="Description of book", min_length=1, max_length=100)
-    rating: int = Field(gt=-1, lt=501)
+    rating: int = Field(gt=-1, lt=101)
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "title": "Examples",
+                "author": "No name",
+                "description": "Interesting description",
+                "rating": 75
+            }
+        }
 
 
 @app.get("/")
