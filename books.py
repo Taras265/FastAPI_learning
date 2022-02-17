@@ -18,11 +18,6 @@ async def read_all_books():
     return BOOKS
 
 
-@app.get("/books/mybook")
-async def read_book():
-    return {"book_title": "My favourite book"}
-
-
 @app.get("/books/{book_name}")
 async def read_book(book_name: str):
     return BOOKS[book_name]
