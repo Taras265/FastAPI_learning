@@ -33,3 +33,10 @@ async def create_book(title, author):
                 current_id = x
     BOOKS[f'book_{current_id+1}'] = {'title': title, 'author': author}
     return BOOKS[f'book_{current_id+1}']
+
+
+@app.put("/{book_name}")
+async def update_book(book_name: str, book_title: str, book_author: str):
+    book_info = {"title": book_title, "author": book_author}
+    BOOKS[book_name] = book_info
+    return book_info
