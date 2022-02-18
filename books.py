@@ -47,7 +47,27 @@ async def read_book(book_id: UUID):
             return x
 
 
-@app.post("/")
+@app.post("/{book_id}")
 async def create_book(book: Book):
     BOOKS.append(book)
     return book
+
+
+@app.put("/")
+async def update_book(book_id: UUID, book: Book):
+    counter = 0
+    for x in BOOKS:
+        counter += 1
+        if x.id == book_id:
+            BOOKS[counter-1] = book
+            return BOOKS[counter-1]
+
+
+@app.delete("/{book_id}")
+async def delete_book(book_id: UUID):
+    counter = 0
+    for x in BOOKS:
+        counter += 1
+        if x.id == book_id:
+            del BOOKS[counter - 1]
+            return f"Book with id {book_id} deleted"
