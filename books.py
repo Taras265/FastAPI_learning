@@ -1,9 +1,7 @@
 from typing import Optional
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, status
 from pydantic import BaseModel, Field
 from uuid import UUID
-
-from starlette import status
 from starlette.responses import JSONResponse
 
 
@@ -60,7 +58,7 @@ async def read_all_books(books_to_return: Optional[int] = None):
         i = 1
         new_books = []
         while i <= books_to_return:
-            new_books.append(BOOKS[i-1])
+            new_books.append(BOOKS[i - 1])
             i += 1
         return new_books
     return BOOKS
@@ -94,8 +92,8 @@ async def update_book(book_id: UUID, book: Book):
     for x in BOOKS:
         counter += 1
         if x.id == book_id:
-            BOOKS[counter-1] = book
-            return BOOKS[counter-1]
+            BOOKS[counter - 1] = book
+            return BOOKS[counter - 1]
     raise raise_item_cannot_be_found_exception()
 
 
@@ -112,4 +110,4 @@ async def delete_book(book_id: UUID):
 
 def raise_item_cannot_be_found_exception():
     return HTTPException(status_code=404, detail="Book not found",
-                        headers={"X-Header-Error": "Nothing to be seen at the UUID"})
+                         headers={"X-Header-Error": "Nothing to be seen at the UUID"})
